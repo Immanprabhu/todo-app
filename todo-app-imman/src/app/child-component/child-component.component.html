@@ -1,0 +1,19 @@
+<section>
+    <div class="Container">
+      <form>
+        <table>
+          <tr><h1>Completed tasks:</h1></tr>
+          <tr>
+            <th>Task List</th>
+            <th>Priority</th>
+            <th>Status</th>
+          </tr>
+          <tr *ngFor="let i of task">
+            <td>{{i.task}}</td>
+            <td>{{i.priority}}</td>
+            <td>{{i.status}}</td>
+          </tr>
+        </table>
+      </form>
+    </div>
+</section>

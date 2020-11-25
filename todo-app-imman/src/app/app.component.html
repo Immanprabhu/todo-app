@@ -1,0 +1,64 @@
+<header>
+  <div class="headContainer">
+    <h1>Welcome To Todo List</h1>
+  </div>
+</header>
+<section>
+  <div class="inputContainer">
+    <form onsubmit="return false" [formGroup]="userForm"  >
+      <table>
+        <tr>
+          <td>
+            <input type="text" placeholder="Enter task" #listInput formControlName="task" />
+            <span class="error" *ngIf="task.errors?.required  && task.touched"> task is required</span>
+          </td>
+             <td>
+                <select #priorityInput name="select" formControlName="priority" (change)="selected($event)">
+                   <option [value]="item.name" *ngFor="let item of data">
+                   {{item.name}}
+                   </option>
+                </select>
+                <span class="error" *ngIf="priority.errors?.required  && priority.touched"> task is required</span>
+             </td>
+             
+          <td>
+            <button [disabled]='!userForm.valid' (click)="addTodo(listInput.value,priorityInput.value);listInput.value=''">Add</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</section>
+<button [routerLink]="['child']" [queryParams]="{ order: 'Completed'}">Complete</button>
+<button [routerLink]="['child']" [queryParams]="{ order: 'In process'}">Inprocess</button>
+<button [routerLink]="['child']" [queryParams]="{ order: 'pending'}">pending</button>
+<section>
+  <div class="bodyContainer">
+    <form>
+      <table>
+        <tr>
+          <th>
+            Task List
+          </th>
+          <th>
+            Priority
+          </th>
+          <th>
+            Status
+          </th>
+        </tr>
+        <tr *ngFor="let todo of todos; let i=index">
+          <td id="task" >{{todo.task}}</td>
+          <td id="priority">{{todo.priority}}</td>
+          <td> 
+            <select  #statusInput name="select"  (change)="selectedStatus($event,i)">
+                <option [value]="item.status" *ngFor="let item of dataStatus">
+                     {{item.status}}
+                </option>
+            </select>
+        </td>
+      </table>
+    </form>
+  </div>
+</section>
+<router-outlet></router-outlet>
